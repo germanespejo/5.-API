@@ -1,0 +1,26 @@
+body{
+    display: flex;
+    justify-content:center;
+    align-items: column;
+}
+
+header{
+    display: flex;
+    justify-content:center;
+    align-items: column;
+}
+
+section{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    align-items: flex-start;
+}
+.card1{
+    border-radius: 1em;
+    border-style: double;
+    border-width: 0.2em;
+    padding: 1em;
+    margin-top: 1em;
+    background-color:rgb(170, 170, 170);
+}

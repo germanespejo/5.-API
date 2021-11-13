@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio 04 / 5. APIs</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+
+</head>
+
+<body>
+    <select>
+        <option selected disabled>Elije un planeta</option>
+    </select>
+    <div></div>
+
+    <script>
+        let select = document.querySelector("select");
+        pintarOptions("https://swapi.dev/api/planets/");
+        select.addEventListener("change", () => {
+            // alert(select.value);
+
+            fetch(select.value)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (res) {
+                    //console.log(res.residents);
+                    pintarPersonajes(res.residents)
+                })
+        })
+
+
+        function pintarOptions(url) {
+            fetch(url)
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (res) {
+                    //console.log(res);
+                    res.results.forEach(planeta => {
+                        select.innerHTML += `<option value="${planeta.url}">${planeta.name}</option>`
+                    });
+
+                    if (res.next != null) {
+                        pintarOptions(res.next);
+                    }
+                })
+        }
+
+        function pintarPersonajes(personajes) {
+            let div = document.querySelector("div");
+            div.innerHTML = "";
+            personajes.forEach(personaje => {
+                fetch(personaje)
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (res) {
+                        console.log(res);
+                        div.innerHTML += `<p>${res.name}</p>`;
+
+                        // if(res.next != null){
+                        //     pitarOptions(res.next);
+                        // }
+                    })
+            });
+
+        }
+    </script>
+</body>
+
+</html>
